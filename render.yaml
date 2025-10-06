@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: meow-share
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build && cd ../backend && npm install
+    startCommand: cd backend && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: SESSION_TTL_HOURS
+        value: 24
+      - key: CLEANUP_INTERVAL_MS
+        value: 3600000
+      - key: STORAGE_PATH
+        value: ./storage
+    autoDeploy: true

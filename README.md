@@ -48,9 +48,59 @@ meow-share/
 - Resumable uploads
 - ZIP download for multiple files
 
-## Development
+## Quick Start
 
-See individual README files in `/backend` and `/frontend` directories.
+### Development Mode (Separate - Hot Reload)
+```bash
+# Install dependencies
+npm run install:all
+
+# Terminal 1 - Backend
+cd backend
+npm run dev
+
+# Terminal 2 - Frontend  
+cd frontend
+npm run dev
+```
+
+### Production Mode (Combined)
+```bash
+# Build and run as one app
+npm run build
+cd backend
+npm start
+
+# Visit http://localhost:3000
+```
+
+## Deployment
+
+**Frontend and backend are now COMBINED!** Deploy as one app:
+
+### Railway (Recommended)
+1. Go to [railway.app](https://railway.app)
+2. Deploy from GitHub repo
+3. Done! Auto-detects configuration
+
+### Render
+1. Go to [render.com](https://render.com)  
+2. Create Web Service from repo
+3. Auto-detects `render.yaml`
+
+### Vercel
+1. Go to [vercel.com/new](https://vercel.com/new)
+2. Import repository
+3. Deploy
+
+**See `START_HERE.md` for complete deployment guide.**
+
+## Documentation
+
+- **START_HERE.md** - Quick deployment guide
+- **UNIFIED_DEPLOYMENT.md** - Detailed deployment instructions
+- **backend/README.md** - Backend API documentation
+- **frontend/README.md** - Frontend development guide
 
 ## License
 

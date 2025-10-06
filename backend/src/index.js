@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 import compression from 'compression';
 import morgan from 'morgan';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
+import { existsSync } from 'fs';
 import sessionRoutes from './routes/sessions.js';
 import { startCleanupWorker } from './services/cleanupService.js';
 import { ensureStorageDirectories } from './utils/storage.js';
@@ -25,7 +26,20 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 app.set('trust proxy', 1);
 
 // Middleware
-app.use(helmet());
+// Configure Helmet to allow inline scripts for Vite-built frontend
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "blob:"],
+        connectSrc: ["'self'"],
+      },
+    },
+  })
+);
 app.use(compression());
 
 // Logging
@@ -51,6 +65,26 @@ app.get('/health', (req, res) => {
 // API routes
 app.use('/api/sessions', sessionRoutes);
 
+// Serve static files from frontend build (if exists)
+const frontendDistPath = join(__dirname, '../../frontend/dist');
+if (existsSync(frontendDistPath)) {
+  console.log('✓ Serving frontend from:', frontendDistPath);
+  
+  // Serve static files
+  app.use(express.static(frontendDistPath));
+  
+  // SPA fallback - serve index.html for all non-API routes
+  app.get('*', (req, res, next) => {
+    // Skip API routes and health check
+    if (req.path.startsWith('/api') || req.path === '/health') {
+      return next();
+    }
+    res.sendFile(join(frontendDistPath, 'index.html'));
+  });
+} else {
+  console.log('⚠ Frontend build not found. Run: cd ../frontend && npm run build');
+}
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err);
@@ -75,9 +109,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ error: 'Not found' });
+// 404 handler for API routes only
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ error: 'API endpoint not found' });
 });
 
 // Initialize storage and start server
