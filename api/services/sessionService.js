@@ -1,5 +1,6 @@
 import { generateHexCode } from '../utils/codeGenerator.js';
 import { ensureStorageDirectories, getStoragePath, saveSessionMetadata, loadSessionMetadata } from '../utils/storage.js';
+import { addFilesToSession as addFilesWithThumbnails } from './fileService.js';
 import { nanoid } from 'nanoid';
 
 const SESSION_TTL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -49,38 +50,9 @@ export async function getSession(code) {
   }
 }
 
-// Add files to existing session
+// Add files to existing session (with thumbnail generation)
 export async function addFilesToSession(code, files) {
-  const session = await getSession(code);
-  
-  if (!session) {
-    throw new Error('Session not found or expired');
-  }
-  
-  // Add file metadata to session
-  const newFiles = files.map(file => ({
-    id: file.filename, // Use the stored filename as ID
-    originalName: file.originalname,
-    storedName: file.filename,
-    size: file.size,
-    mimeType: file.mimetype,
-    uploadedAt: Date.now()
-  }));
-  
-  session.files.push(...newFiles);
-  
-  // Check total session size
-  const totalSize = session.files.reduce((sum, f) => sum + f.size, 0);
-  const maxSessionSize = 200 * 1024 * 1024; // 200 MB
-  
-  if (totalSize > maxSessionSize) {
-    throw new Error('Session size limit exceeded (200 MB maximum)');
-  }
-  
-  // Save updated session
-  await saveSessionMetadata(code, session);
-  
-  return session;
+  return await addFilesWithThumbnails(code, files);
 }
 
 // Delete session

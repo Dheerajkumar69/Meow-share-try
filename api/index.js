@@ -7,6 +7,11 @@ import sessionRoutes from './routes/sessions.js';
 import { startCleanupWorker } from './services/cleanupService.js';
 import { ensureStorageDirectories } from './utils/storage.js';
 import { apiLimiter } from './middleware/rateLimiter.js';
+import SignalingServer from './signaling.js';
+
+// Initialize signaling server
+const signalingServer = new SignalingServer(3001);
+signalingServer.start();
 
 const app = express();
 

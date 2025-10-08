@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import Sender from './components/Sender';
-import Receiver from './components/Receiver';
+import SenderP2P from './components/SenderP2P';
+import ReceiverP2P from './components/ReceiverP2P';
 
 function App() {
   const [mode, setMode] = useState('sender');
@@ -32,7 +32,7 @@ function App() {
       </div>
 
       <main className="app-main">
-        {mode === 'sender' ? <Sender /> : <Receiver />}
+        {mode === 'sender' ? <SenderP2P /> : <ReceiverP2P />}
       </main>
 
       <footer className="app-footer">

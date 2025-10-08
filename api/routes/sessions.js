@@ -120,6 +120,39 @@ router.get('/:code/files/:fileId', validateSessionCode, async (req, res, next) =
   }
 });
 
+// Get thumbnail for a specific file
+router.get('/:code/thumbnails/:fileId', validateSessionCode, async (req, res, next) => {
+  try {
+    const session = await getSession(req.params.code);
+    
+    if (!session) {
+      return res.status(404).json({ error: 'Session not found or expired' });
+    }
+    
+    const file = session.files.find(f => f.id === req.params.fileId);
+    
+    if (!file) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+    
+    const { getThumbnailPath } = await import('../utils/storage.js');
+    const thumbnailPath = getThumbnailPath(req.params.code, file.storedName);
+    
+    if (!existsSync(thumbnailPath)) {
+      return res.status(404).json({ error: 'Thumbnail not found' });
+    }
+    
+    // Set headers for image
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.setHeader('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+    
+    // Stream the thumbnail
+    res.sendFile(thumbnailPath);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Download all files as zip (optional enhancement)
 router.get('/:code/download-all', validateSessionCode, async (req, res, next) => {
   try {

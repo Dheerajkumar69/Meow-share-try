@@ -120,6 +120,86 @@ body {
   border: 1px solid #cfc;
 }
 
+/* P2P Transfer Status Styles */
+.transfer-status {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.transfer-status .status-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.transfer-status h3 {
+  margin: 0.5rem 0;
+  color: white;
+}
+
+.transfer-status p {
+  margin: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #8b5cf6, #a855f7);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+}
+
+.transfer-status.p2p-attempting {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.transfer-status.p2p-connected {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.transfer-status.p2p-timeout {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.transfer-status.server-uploading {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.transfer-status.complete {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.waiting-files {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  padding: 2rem;
+}
+
 @media (max-width: 600px) {
   .app {
     padding: 10px;

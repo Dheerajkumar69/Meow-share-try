@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Share - P2P File Sharing</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐱 Meow Share</h1>
+            <p>Secure P2P file sharing with automatic fallback</p>
+        </header>
+
+        <main>
+            <!-- Home Screen -->
+            <div id="home-screen" class="screen active">
+                <div class="options">
+                    <button id="create-session-btn" class="primary-btn">
+                        📤 Send Files
+                    </button>
+                    <button id="join-session-btn" class="secondary-btn">
+                        📥 Receive Files
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sender Screen -->
+            <div id="sender-screen" class="screen">
+                <div class="session-info">
+                    <h2>Sending Session</h2>
+                    <div class="code-display">
+                        <span id="session-code">------</span>
+                        <button id="copy-code-btn" title="Copy code">📋</button>
+                        <button id="show-qr-btn" title="Show QR code">📱</button>
+                    </div>
+                    <p class="code-instructions">Share this code with the receiver</p>
+                </div>
+
+                <div id="file-selection" class="section">
+                    <div class="file-drop-zone" id="file-drop-zone">
+                        <input type="file" id="file-input" multiple accept="image/*,video/*,audio/*,.pdf,.txt,.zip">
+                        <div class="drop-content">
+                            <p>📁 Drop files here or click to select</p>
+                            <small>Max 25MB per file, 200MB total</small>
+                        </div>
+                    </div>
+                    
+                    <div id="file-list" class="file-list"></div>
+                </div>
+
+                <div id="connection-status" class="section">
+                    <div class="status-indicator">
+                        <span id="status-icon">⏳</span>
+                        <span id="status-text">Waiting for receiver...</span>
+                    </div>
+                    <div id="connection-progress" class="progress-container" style="display: none;">
+                        <div class="progress-bar">
+                            <div id="connection-progress-fill" class="progress-fill"></div>
+                        </div>
+                        <span id="connection-progress-text">Establishing connection...</span>
+                    </div>
+                </div>
+
+                <div id="transfer-progress" class="section" style="display: none;">
+                    <h3>Transfer Progress</h3>
+                    <div class="transfer-stats">
+                        <span id="transfer-mode">Mode: Connecting...</span>
+                        <span id="transfer-speed">Speed: --</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div id="transfer-progress-fill" class="progress-fill"></div>
+                        </div>
+                        <span id="transfer-progress-text">0%</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="start-transfer-btn" class="primary-btn" style="display: none;">Start Transfer</button>
+                    <button id="cancel-session-btn" class="secondary-btn">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Receiver Screen -->
+            <div id="receiver-screen" class="screen">
+                <div class="code-input">
+                    <h2>Enter Session Code</h2>
+                    <input type="text" id="session-code-input" placeholder="Enter 6-digit code" maxlength="6">
+                    <button id="join-btn" class="primary-btn">Join Session</button>
+                </div>
+
+                <div id="receiver-status" class="section" style="display: none;">
+                    <div class="status-indicator">
+                        <span id="receiver-status-icon">⏳</span>
+                        <span id="receiver-status-text">Connecting...</span>
+                    </div>
+                </div>
+
+                <div id="incoming-files" class="section" style="display: none;">
+                    <h3>Incoming Files</h3>
+                    <div id="incoming-file-list" class="file-list"></div>
+                </div>
+
+                <div id="receive-progress" class="section" style="display: none;">
+                    <h3>Receiving Files</h3>
+                    <div class="transfer-stats">
+                        <span id="receive-mode">Mode: Connecting...</span>
+                        <span id="receive-speed">Speed: --</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div id="receive-progress-fill" class="progress-fill"></div>
+                        </div>
+                        <span id="receive-progress-text">0%</span>
+                    </div>
+                </div>
+
+                <div id="completed-files" class="section" style="display: none;">
+                    <h3>Completed Files</h3>
+                    <div id="completed-file-list" class="file-list"></div>
+                </div>
+
+                <div class="actions">
+                    <button id="back-to-home-btn" class="secondary-btn">Back</button>
+                </div>
+            </div>
+
+            <!-- QR Code Modal -->
+            <div id="qr-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h3>QR Code</h3>
+                    <div id="qr-code-container"></div>
+                    <button id="close-qr-btn" class="secondary-btn">Close</button>
+                </div>
+            </div>
+
+            <!-- Error Modal -->
+            <div id="error-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h3>❌ Error</h3>
+                    <p id="error-message"></p>
+                    <button id="close-error-btn" class="primary-btn">OK</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Files are transferred directly between devices when possible. Server fallback ensures reliable delivery.</p>
+            <p><small>Session expires in 24 hours</small></p>
+        </footer>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>

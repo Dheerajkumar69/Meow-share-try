@@ -33,6 +33,23 @@ export function getFilePath(sessionCode, filename) {
   return join(getStoragePath(sessionCode), filename);
 }
 
+// Get thumbnails path
+export function getThumbnailsPath(sessionCode) {
+  const path = join(BASE_STORAGE_PATH, sessionCode, 'thumbnails');
+  
+  // Create directory if it doesn't exist
+  if (!existsSync(path)) {
+    mkdirSync(path, { recursive: true });
+  }
+  
+  return path;
+}
+
+// Get thumbnail file path
+export function getThumbnailPath(sessionCode, filename) {
+  return join(getThumbnailsPath(sessionCode), filename);
+}
+
 // Get metadata file path
 function getMetadataPath(sessionCode) {
   return join(getStoragePath(sessionCode), 'metadata.json');
@@ -67,3 +84,7 @@ export async function loadSessionMetadata(sessionCode) {
     return null;
   }
 }
+
+// Alias functions for compatibility
+export const readMetadata = loadSessionMetadata;
+export const writeMetadata = saveSessionMetadata;
