@@ -34,7 +34,7 @@ function SenderP2P() {
     try {
       setError('');
       setTransferMode('waiting');
-      const response = await axios.post(`${API_BASE}/sessions`);
+      const response = await axios.post(`${API_BASE}/session/create`);
       setSessionCode(response.data.code);
       setSuccess('Session created! Now select files to upload.');
     } catch (err) {
@@ -150,7 +150,7 @@ function SenderP2P() {
         formData.append('files', file);
       });
 
-      await axios.post(`${API_BASE}/sessions/${sessionCode}/files`, formData, {
+      await axios.post(`${API_BASE}/session/${sessionCode}/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

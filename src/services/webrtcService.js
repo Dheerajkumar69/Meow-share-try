@@ -58,7 +58,7 @@ class WebRTCService {
       const isProduction = window.location.hostname !== 'localhost';
       const wsUrl = isProduction 
         ? `${protocol}//${window.location.hostname}/signaling`
-        : `${protocol}//${window.location.hostname}:3001`;
+        : `${protocol}//${window.location.hostname}:8080`;
       
       this.signalingSocket = new WebSocket(wsUrl);
       

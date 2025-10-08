@@ -23,7 +23,7 @@ function Receiver() {
     setSession(null);
 
     try {
-      const response = await axios.get(`${API_BASE}/sessions/${code.toLowerCase()}`);
+      const response = await axios.get(`${API_BASE}/session/${code.toLowerCase()}`);
       setSession(response.data);
     } catch (err) {
       setError(err.response?.data?.error || 'Session not found');
@@ -38,7 +38,7 @@ function Receiver() {
     
     try {
       const response = await axios.get(
-        `${API_BASE}/sessions/${code.toLowerCase()}/files/${fileId}`,
+        `${API_BASE}/session/${code.toLowerCase()}/download/${fileId}`,
         { responseType: 'blob' }
       );
 

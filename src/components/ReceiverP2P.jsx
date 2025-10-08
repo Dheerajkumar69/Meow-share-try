@@ -38,7 +38,7 @@ function ReceiverP2P() {
     setTransferMode('waiting');
 
     try {
-      const response = await axios.get(`${API_BASE}/sessions/${code.toLowerCase()}`);
+      const response = await axios.get(`${API_BASE}/session/${code.toLowerCase()}`);
       setSession(response.data);
       
       // If there are files on server, show them
@@ -120,7 +120,7 @@ function ReceiverP2P() {
     
     try {
       const response = await axios.get(
-        `${API_BASE}/sessions/${code.toLowerCase()}/files/${fileId}`,
+        `${API_BASE}/session/${code.toLowerCase()}/download/${fileId}`,
         { responseType: 'blob' }
       );
 
