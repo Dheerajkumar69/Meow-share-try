@@ -8,7 +8,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Get storage path from env or use default
-const STORAGE_PATH = process.env.STORAGE_PATH || path.join(__dirname, '../../storage');
+// For Vercel, use /tmp directory which is writable in serverless functions
+const STORAGE_PATH = process.env.STORAGE_PATH || 
+  (process.env.VERCEL ? '/tmp/storage' : path.join(__dirname, '../../storage'));
 const SESSIONS_PATH = path.join(STORAGE_PATH, 'sessions');
 
 /**

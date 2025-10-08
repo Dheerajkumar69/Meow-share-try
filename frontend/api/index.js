@@ -138,4 +138,13 @@ async function startServer() {
   }
 }
 
-startServer();
+// For Vercel serverless deployment
+if (process.env.VERCEL) {
+  // Initialize storage for serverless
+  ensureStorageDirectories().catch(console.error);
+  // Export for Vercel
+  export default app;
+} else {
+  // Start local server
+  startServer();
+}
