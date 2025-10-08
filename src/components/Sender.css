@@ -1,0 +1,131 @@
+.sender {
+  min-height: 400px;
+}
+
+.create-session {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.create-session h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.create-session p {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.session-code-display {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border-radius: 12px;
+}
+
+.session-code-display h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.code-box {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: #667eea;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  margin: 15px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Courier New', monospace;
+}
+
+.code-instruction {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.file-upload h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.file-upload input[type="file"] {
+  padding: 12px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.file-upload input[type="file"]:hover {
+  border-color: #667eea;
+}
+
+.file-list {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.file-list p {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.file-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.file-list li {
+  padding: 5px 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .code-box {
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+  }
+}
